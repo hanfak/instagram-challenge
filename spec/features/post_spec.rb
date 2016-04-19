@@ -8,4 +8,17 @@ feature 'Posts' do
       expect(page).to have_link 'Add an image'
     end
   end
+
+  context 'posts have been added' do
+
+  before do
+    Post.create(title: 'Musafa')
+  end
+
+  scenario 'display title of image' do
+    visit '/posts'
+    expect(page).to have_content('Musafa')
+    expect(page).not_to have_content('No posts yet')
+  end
+end
 end
