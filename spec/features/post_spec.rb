@@ -11,14 +11,26 @@ feature 'Posts' do
 
   context 'posts have been added' do
 
-  before do
-    Post.create(title: 'Musafa')
+    before do
+      Post.create(title: 'Mufasa')
+    end
+
+    scenario 'display title of image' do
+      visit '/posts'
+      expect(page).to have_content('Mufasa')
+      expect(page).not_to have_content('No posts yet')
+    end
   end
 
-  scenario 'display title of image' do
-    visit '/posts'
-    expect(page).to have_content('Musafa')
-    expect(page).not_to have_content('No posts yet')
+  context 'Creating a post' do
+    scenario 'add a picture and title' do
+      visit '/'
+      click_link 'Add an image'
+      attach_file('post[image]', Rails.root + "spec/files/images/Mufasa.jpg")
+      fill_in 'Title', with: 'Mufasa'
+      click_button 'Post'
+      expect(page).to have_content('Mufasa')
+      expect(page).to have_css("img[src*='Mufasa.jpg']")
+    end
   end
-end
 end

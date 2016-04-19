@@ -1,7 +1,8 @@
 - if @posts.any?
   - @posts.each do |post|
     %h2= post.title
+    = image_tag post.image.url(:medium)
 - else
   %h1 No images yet!
 
-%a(href='#') Add an image
+%a(href='/posts/new') Add an image
